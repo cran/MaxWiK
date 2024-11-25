@@ -1,0 +1,90 @@
+# Output data
+
+## Output of MaxWiK algorithm
+
+### Voronoi matrix
+
+The Voronoi matrix is a matrix of information about Voronoi sites for each tree in the isolation forest algorithm (rows - trees, columns - Voronoi sites IDs) for parameters data set:
+
+```{r, include = TRUE}
+cols = c(1:4, 9:16)
+df = as.data.frame( MaxWiK::Data.2D$ABC$Matrix.Voronoi[ 1:4, cols ] )
+names( df ) = cols
+print( df )
+
+```
+
+### The kernel mean embedding
+
+The kernel_mean_embedding is a kernel mean embedding of observation point in the form of the vector of IDs of the Voronoi sites in the Voronoi matrix for each tree:
+
+```{r, include = TRUE}
+MaxWiK::Data.2D$ABC$result.MaxWiK$kernel_mean_embedding
+
+```
+
+In this example, the kernel mean embedding has 8 IDs for 8 trees where each ID is a column number of Voronoi matrix, tree ID corresponds to the row of Voronoi matrix.
+
+### Similarity
+
+The similarity vector is the similarity measured by using isolation kernel, and it shows how each data point similar to the observation one, for example for the first points:
+
+```{r, include = TRUE}
+MaxWiK::Data.2D$ABC$result.MaxWiK$similarity[1:20]
+
+```
+
+### Matrix_iKernel
+
+The Matrix_iKernel is the matrix of Voronoi sites for each data point in the form of Hilbert representation, for example, for the first data points:
+
+```{r, include = TRUE}
+MaxWiK::Data.2D$ABC$result.MaxWiK$Matrix_iKernel[1:4,]
+
+```
+
+### Other data
+
+Other data like hyperparameters, $t$, $\psi$, etc., can be found in the description of the related functions, or intuitively understandable.
+
+## Output of metasampling algorithm
+
+The metasampling algorithm has several features, because it iteratively generates the data points in the space of parameters and selects the points with higher similarity. The result has the next issues:
+
+-   input.parameters is just all the input parameters of the function **meta_sampling()**;
+
+-   iteration is a number of iterations during metasampling;
+
+-   iKernelABC is the list of output from **get.MaxWiK()** function;
+
+-   par.best is the best parameter found at the end of metasampling;
+
+-   sim.best is the similarity corresponing to the par.best point;
+
+-   spiderweb is the list of the generated data points for each iteration, the name 'spiderweb' used because of algorithmic feature which generates data points closer and cloaser to the observation like spider makes a web.
+
+## Output of sampling algorithm
+
+The functions sampler_MaxWiK() and sampler_MaxWiK_parallel() return the list of the next objects:
+
+-   results - the data frame of results of the sampling algorithm which includes the generated parameters, simulated output data, similarities (sim), mean squared error (mse), comments (com), and simulation IDs (sim_ID):
+
+```{r, echo=FALSE, include = TRUE}
+str(MaxWiK::Data.2D$sampling$MaxWiK$results)
+```
+
+-   best - the data frame of the most accurate simulation:
+
+```{r, echo=FALSE, include = TRUE}
+str(MaxWiK::Data.2D$sampling$MaxWiK$best)
+```
+
+-   time - the time of sampling in seconds;
+
+-   n_simulations - the total number of simulations;
+
+-   number_of_iterations - the number of iterations, each iteration includes several simulations, and number of simulations in each iteration depends on hyperparameters.
+
+## Output of predictor
+
+The output format of predictor is almost same as for metasampling algorithm, for details, please, see manual.

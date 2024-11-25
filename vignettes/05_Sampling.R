@@ -1,0 +1,72 @@
+## ---- include = FALSE---------------------------------------------------------
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+## ---- include = TRUE, echo=TRUE, eval=FALSE-----------------------------------
+#  do.call( what = model, args = c( arg0, list( x = c(5, 7) ) ) )
+
+## ---- include = TRUE, echo=TRUE, eval=FALSE-----------------------------------
+#  smpl.2D  = MaxWiK::Data.2D$sampling
+#  stat.sim = MaxWiK::Data.2D$Y
+#  par.sim  = MaxWiK::Data.2D$X
+#  sampling.res = sampler_MaxWiK( stat.obs =  smpl.2D$stat.obs,
+#                                stat.sim =  stat.sim,
+#                                par.sim  =  par.sim,
+#                                model    =  smpl.2D$model_function,
+#                                arg0     =  smpl.2D$model_par,
+#                                size     =  1600,
+#                                psi_t    =  smpl.2D$psi_t,
+#                                epsilon  =  1E-10,
+#                                check_err  =  FALSE,
+#                                nmax     =  60,
+#                                include_top  =  TRUE,
+#                                slowly       =  TRUE,
+#                                rate         =  0.05,
+#                                n_simulation_stop = 1000,
+#                                include_web_rings = F,
+#                                number_of_nodes_in_ring = 1  )
+
+## ---- include = TRUE, echo=TRUE, eval=FALSE-----------------------------------
+#  MSE  =  data.frame( sim_ID = sampling.res$results$sim_ID,
+#                      MSE    = sampling.res$results$mse )
+#  X12  =  data.frame( sim_ID  = sampling.res$results$sim_ID,
+#                      X1 = sampling.res$results$par.sim.X1,
+#                      X2 = sampling.res$results$par.sim.X2 )
+
+## ---- echo=FALSE, include = TRUE, fig.height=3, fig.width=5-------------------
+library('ggplot2')
+MSE = MaxWiK::Data.2D$sampling$MSE
+obs = MaxWiK::Data.2D$observation
+th =     theme(
+    plot.title = element_text(color="red", size=12, face="bold.italic"),
+    axis.title.x = element_text(color="black", size=13, face="bold"),
+    axis.title.y = element_text(color="black", size=13, face="bold"), 
+    axis.text    = element_text(color="black", size=11             )
+)
+ggplot(data = MSE, aes( x, y ) ) + 
+    geom_line( linewidth = 0.7 )  +  scale_y_log10() + 
+    geom_smooth(method = "lm", alpha = .5, formula= y~x ) + 
+    ylab("Mean Squared Error") + xlab("Number of simulations") + th
+
+## ---- echo=FALSE, include = TRUE, fig.height=3, fig.width=5-------------------
+library('ggplot2')
+X12 = MaxWiK::Data.2D$sampling$X12
+obs = MaxWiK::Data.2D$observation
+th =     theme(
+    plot.title = element_text(color="red", size=12, face="bold.italic"),
+    axis.title.x = element_text(color="black", size=13, face="bold"),
+    axis.title.y = element_text(color="black", size=13, face="bold"), 
+    axis.text    = element_text(color="black", size=11             )
+)
+ggplot(data = X12, aes( i ) ) + 
+    geom_line(aes(y = x1 ), linewidth = 0.5 ) +
+    geom_line(aes(y = x2 ), linewidth = 0.5 ) + 
+    geom_hline( aes(yintercept= obs$x0[1]),   
+                color='red', linetype=2, linewidth=0.4) +
+    geom_hline( aes(yintercept= obs$x0[2]),   
+                color='red', linetype=2, linewidth=0.4) +
+    ylab("Parameters X1 and X2") + xlab("Number of simulations") + th
+
+

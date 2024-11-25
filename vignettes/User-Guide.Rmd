@@ -1,0 +1,64 @@
+---
+title: '**MaxWiK**'
+subtitle: "--**Max**ima **W**eighted **i**solation **K**ernel machine learning method--"
+date: "`r format(Sys.time(), '%Y/%m/%d')`"
+output:
+  pdf_document:
+    toc: yes
+    number_sections: yes
+    highlight: tango
+  word_document:
+    toc: yes
+  html_document:
+    toc: yes
+    number_sections: yes
+    df_print: paged
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{**MaxWiK**}
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.align='center'
+)
+```
+
+\newpage
+
+```{r, child = '01_Input'}
+```
+
+```{r, child = '02_Output'}
+```
+
+```{r, child = '02_1_Templates'}
+```
+
+\newpage
+
+```{r, child = '03_ABC'}
+```
+
+\newpage
+
+```{r, child = '04_Metasampling'}
+```
+
+\newpage
+
+```{r, child = '05_Sampling'}
+```
+
+\newpage
+
+```{r, child = '06_Predictor'}
+```
+
+\newpage
+
+```{r, child = '99_References'}
+```
