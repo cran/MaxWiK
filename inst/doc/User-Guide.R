@@ -11,7 +11,13 @@ str(MaxWiK::Data.2D$X)
 
 ## ----echo=FALSE, include = TRUE, fig.height=4, fig.width=4--------------------
 library(ggplot2)
-df = MaxWiK::Data.2D$X; th = MaxWiK::Data.2D$sampling$theme.ggplot
+df = MaxWiK::Data.2D$X
+th = theme(
+            plot.title = element_text(color="red", size=12, face="bold.italic"),
+            axis.title.x = element_text(color="black", size=13, face="bold"),
+            axis.title.y = element_text(color="black", size=13, face="bold", angle = 90), 
+            axis.text    = element_text(color="black", size=11             )
+)
 obs = MaxWiK::Data.2D$observation$x0
 ggplot(data = df, mapping = aes( x = par.sim.X1, y = par.sim.X2) ) +
     geom_point(size = 0.3) + th + 
@@ -115,7 +121,12 @@ MaxWiK::MaxWiK.ggplot.density( title = ' Posteriori distribution of X2 parameter
 
 ## ----echo=FALSE, include = TRUE, fig.height=3, fig.width=5--------------------
 library('ggplot2')
-th = MaxWiK::Data.2D$sampling$theme.ggplot
+th = theme(
+            plot.title = element_text(color="red", size=12, face="bold.italic"),
+            axis.title.x = element_text(color="black", size=13, face="bold"),
+            axis.title.y = element_text(color="black", size=13, face="bold", angle = 90), 
+            axis.text    = element_text(color="black", size=11             )
+)
 meta.sampling  =  MaxWiK::Data.2D$metasampling$result
 network  = unique.data.frame( do.call(rbind.data.frame, meta.sampling$spiderweb ) )
 obs = MaxWiK::Data.2D$observation
@@ -131,7 +142,12 @@ MaxWiK::MaxWiK.ggplot.density( title = ' Posteriori distribution of X1 parameter
 
 ## ----echo=FALSE, include = TRUE, fig.height=3, fig.width=5--------------------
 library('ggplot2')
-th = MaxWiK::Data.2D$sampling$theme.ggplot
+th = theme(
+            plot.title = element_text(color="red", size=12, face="bold.italic"),
+            axis.title.x = element_text(color="black", size=13, face="bold"),
+            axis.title.y = element_text(color="black", size=13, face="bold", angle = 90), 
+            axis.text    = element_text(color="black", size=11             )
+)
 meta.sampling  =  MaxWiK::Data.2D$metasampling$result
 network  = unique.data.frame( do.call(rbind.data.frame, meta.sampling$spiderweb ) )
 obs = MaxWiK::Data.2D$observation
@@ -180,11 +196,11 @@ MaxWiK::MaxWiK.ggplot.density( title = ' Posteriori distribution of X2 parameter
 library('ggplot2')
 MSE = MaxWiK::Data.2D$sampling$MSE
 obs = MaxWiK::Data.2D$observation
-th =     theme(
-    plot.title = element_text(color="red", size=12, face="bold.italic"),
-    axis.title.x = element_text(color="black", size=13, face="bold"),
-    axis.title.y = element_text(color="black", size=13, face="bold"), 
-    axis.text    = element_text(color="black", size=11             )
+th = theme(
+            plot.title = element_text(color="red", size=12, face="bold.italic"),
+            axis.title.x = element_text(color="black", size=13, face="bold"),
+            axis.title.y = element_text(color="black", size=13, face="bold", angle = 90), 
+            axis.text    = element_text(color="black", size=11             )
 )
 ggplot(data = MSE, aes( x, y ) ) + 
     geom_line( linewidth = 0.7 )  +  scale_y_log10() + 
@@ -195,11 +211,11 @@ ggplot(data = MSE, aes( x, y ) ) +
 library('ggplot2')
 X12 = MaxWiK::Data.2D$sampling$X12
 obs = MaxWiK::Data.2D$observation
-th =     theme(
-    plot.title = element_text(color="red", size=12, face="bold.italic"),
-    axis.title.x = element_text(color="black", size=13, face="bold"),
-    axis.title.y = element_text(color="black", size=13, face="bold"), 
-    axis.text    = element_text(color="black", size=11             )
+th = theme(
+            plot.title = element_text(color="red", size=12, face="bold.italic"),
+            axis.title.x = element_text(color="black", size=13, face="bold"),
+            axis.title.y = element_text(color="black", size=13, face="bold", angle = 90), 
+            axis.text    = element_text(color="black", size=11             )
 )
 ggplot(data = X12, aes( i ) ) + 
     geom_line(aes(y = x1 ), linewidth = 0.5 ) +
